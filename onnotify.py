@@ -87,7 +87,7 @@ def db_update(db_dir, my_id, f, create_record):
         if id_ == my_id: continue
         new_records.append(record)
     if n_outdated > 0:
-        warn(f"erased {n_outdated} outdated record{'s' * (n_outdated == 1)}")
+        warn(f"erased {n_outdated} outdated record{'s' * (n_outdated != 1)}")
     fifo_path = f"{db_dir}/fifo.{my_id}"
     if create_record:
         new_records.append((now, my_id, cwd))
