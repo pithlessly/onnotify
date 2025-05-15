@@ -125,15 +125,20 @@ class Runner():
         print(end=ANSI, flush=True)
     def __init__(self, cmd, do_clear):
         self.cmd = cmd
+        self.child_process = None
         self.do_clear = do_clear
         self.cleared = False
     def early_clear(self):
         self.clear()
         self.cleared = True
+    def start_child(self):
+        if self.child_process is not None:
+            self.child_process.terminate()
+        self.child_process = subprocess.Popen(self.cmd)
     def run(self):
         if not self.cleared:
             self.clear();
-        subprocess.run(self.cmd)
+        self.start_child()
         self.cleared = False
     startup = run
 
