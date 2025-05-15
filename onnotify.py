@@ -43,7 +43,7 @@ def main(argv):
         do_clear = False
         cmd = cmd[1:]
     if cmd and cmd[0] == "--":
-        cmd == cmd[1:]
+        cmd = cmd[1:]
     if cmd:
         runner = Runner(cmd, do_clear)
         runner.early_clear()
