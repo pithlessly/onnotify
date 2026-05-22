@@ -5,12 +5,17 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, flake-utils, nixpkgs }:
-  flake-utils.lib.eachDefaultSystem (system:
-  let
-    pkgs = nixpkgs.legacyPackages.${system};
-    onnotify = import ./default.nix { inherit pkgs; };
-  in {
-    packages.onnotify = onnotify;
-    defaultPackage = onnotify;
-  });
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        drv = pkgs.callPackage ./default.nix {};
+      in {
+        packages.onnotify = drv;
+        defaultPackage = drv;
+      }
+    ) // {
+      overlays.default = final: prev: {
+        onnotify = final.callPackage ./default.nix {};
+      };
+    };
 }

@@ -1,5 +1,5 @@
-{ pkgs ? import <nixpkgs> {} }:
-pkgs.stdenv.mkDerivation {
+{ stdenv }:
+stdenv.mkDerivation {
   name = "onnotify";
   src = ./.;
   buildPhase = ''
