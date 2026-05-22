@@ -133,6 +133,7 @@ class Runner():
         self.cleared = True
     def start_child(self):
         if self.child_process is not None:
+            warn("killing previous process")
             self.child_process.terminate()
         self.child_process = subprocess.Popen(self.cmd)
     def run(self):
